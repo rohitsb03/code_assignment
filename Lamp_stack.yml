@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  tasks:
+    - name: install appache
+      yum:
+        name: httpd
+        state: installed
+
+    - name: enabe httpd
+      service:
+        name: httpd
+        enabled: yes
+        state: started
+
+    - name: instal mysql
+      yum:
+        name:
+          - mariadb-server
+          - mariadb
+        state: latest
+
+    - name: start mariadb
+      service:
+        name: mariadb
+        enabled: yes
+        state: started
+
+    - name: instaling PHP
+      yum:
+        name:
+          - php
+          - php-mysql
+        state: latest
+
+    - name: copy code
+      copy:
+        src: /home/ec2-user/playbook/index.php
+        dest: /var/www/html/index.php
+
